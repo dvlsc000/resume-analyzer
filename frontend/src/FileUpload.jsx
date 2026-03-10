@@ -3,24 +3,31 @@ import Navbar from "./Navbar";
 import "./AuthStyles.css";
 
 export default function FileUpload() {
-  const [file, setFile] = useState(null);
+  const [resume, setResume] = useState(null);
+  const [jobDescription, setJobDescription] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleResumeChange = (event) => {
+    setResume(event.target.files[0]);
   };
 
-  const handleUpload = async () => {
-    if (!file) {
-      setStatus("Please select a file first.");
+  const handleSubmit = async () => {
+    if (!resume) {
+      setStatus("Please upload your resume.");
+      return;
+    }
+
+    if (!jobDescription.trim()) {
+      setStatus("Please paste the job description.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("resume", resume);
+    formData.append("jobDescription", jobDescription);
 
     try {
-      setStatus("Uploading...");
+      setStatus("Uploading resume and job description...");
 
       const response = await fetch("/api/upload", {
         method: "POST",
@@ -28,12 +35,12 @@ export default function FileUpload() {
       });
 
       if (!response.ok) {
-        throw new Error("Upload failed");
+        throw new Error("Submission failed");
       }
 
-      setStatus("Upload successful!");
+      setStatus("Resume and job description submitted successfully!");
     } catch (error) {
-      setStatus("Upload failed.");
+      setStatus("Submission failed.");
       console.error(error);
     }
   };
@@ -43,11 +50,29 @@ export default function FileUpload() {
       <Navbar />
       <div className="page-wrapper">
         <div className="upload-container">
-          <h2>Upload File</h2>
-          <p className="upload-subtext">Choose your file and send it securely.</p>
+          <h2>Resume Matcher</h2>
+          <p className="upload-subtext">
+            Upload your resume and paste the job description below.
+          </p>
 
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleUpload}>Upload</button>
+          <div className="form-group">
+            <label className="input-label">Upload Resume</label>
+            <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeChange} />
+            {resume && <p className="file-name">Selected: {resume.name}</p>}
+          </div>
+
+          <div className="form-group">
+            <label className="input-label">Job Description</label>
+            <textarea
+              className="job-description-box"
+              placeholder="Paste the full job description here..."
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              rows={10}
+            />
+          </div>
+
+          <button onClick={handleSubmit}>Submit</button>
 
           {status && <p className="status-message">{status}</p>}
         </div>
