@@ -1,0 +1,73 @@
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .navbar-links {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-btn {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+
+  .page-wrapper {
+    padding-top: 165px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .upload-container {
+    max-width: 100%;
+  }
+
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .score-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analysis-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .analysis-card-full {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .auth-container,
+  .upload-container {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+
+  .auth-container h2,
+  .upload-container h2 {
+    font-size: 1.65rem;
+  }
+
+  .auth-container input,
+  .upload-container input,
+  .auth-container button,
+  .upload-container button,
+  .job-description-box {
+    font-size: 0.95rem;
+    padding: 14px;
+  }
+
+  .job-description-box {
+    min-height: 220px;
+  }
+}

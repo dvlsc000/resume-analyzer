@@ -1,0 +1,50 @@
+/* =========================
+   GOOGLE FONT
+   ========================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* =========================
+   GLOBAL RESET
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+/* =========================
+   PAGE BACKGROUND
+   ========================= */
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 0, 128, 0.25), transparent 30%),
+    radial-gradient(circle at top right, rgba(0, 209, 255, 0.22), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(140, 82, 255, 0.20), transparent 35%),
+    linear-gradient(135deg, #0f172a, #111827, #1e293b);
+  background-size: 200% 200%;
+  animation: bgMove 12s ease infinite;
+  color: #ffffff;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+@keyframes bgMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

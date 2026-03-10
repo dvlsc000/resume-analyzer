@@ -1,0 +1,88 @@
+.upload-container input[type="file"] {
+  padding: 14px;
+  cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.input-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+}
+
+/* =========================
+   JOB DESCRIPTION TEXTAREA
+   ========================= */
+.job-description-box {
+  width: 100%;
+  min-height: 240px;
+  max-height: 420px;
+  resize: vertical;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  outline: none;
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.job-description-box::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.job-description-box:focus {
+  border-color: rgba(103, 232, 249, 0.7);
+  box-shadow:
+    0 0 0 4px rgba(34, 211, 238, 0.12),
+    0 0 18px rgba(34, 211, 238, 0.18);
+  transform: translateY(-1px);
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #c4b5fd;
+  text-align: left;
+  margin-top: 4px;
+  word-break: break-word;
+}
+
+.job-description-box,
+.result-box,
+.analysis-card,
+.status-message,
+.file-name {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* =========================
+   RESULT / CONTENT SAFETY
+   ========================= */
+.upload-container,
+.upload-container * {
+  max-width: 100%;
+}
+
+.upload-container h3,
+.upload-container h4,
+.upload-container p,
+.upload-container span,
+.upload-container div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

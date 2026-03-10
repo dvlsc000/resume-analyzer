@@ -8,6 +8,15 @@ export default function FileUpload() {
   const [status, setStatus] = useState("");
   const [result, setResult] = useState(null);
 
+  const finalScore = Number(result?.final_score ?? 0);
+
+  const verdictClass =
+    finalScore >= 75
+      ? "verdict-badge verdict-strong"
+      : finalScore >= 50
+        ? "verdict-badge verdict-medium"
+        : "verdict-badge verdict-weak";
+
   const handleResumeChange = (event) => {
     setResume(event.target.files[0]);
   };
@@ -53,67 +62,136 @@ export default function FileUpload() {
   return (
     <>
       <Navbar />
-      <div className="page-wrapper">
-        <div className="upload-container">
-          <h2>Resume Matcher</h2>
-          <p className="upload-subtext">
-            Upload your resume and paste the job description below.
-          </p>
 
-          <div className="form-group">
-            <label className="input-label">Upload Resume</label>
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={handleResumeChange}
-            />
-            {resume && <p className="file-name">Selected: {resume.name}</p>}
+      <div className="page-wrapper upload-page">
+        <div className="page-content-center">
+          <div className="upload-container upload-container-wide">
+            <h2>Resume Matcher</h2>
+            <p className="upload-subtext">
+              Upload your resume and paste the job description below.
+            </p>
+
+            <div className="form-grid">
+              <div className="form-group">
+                <label className="input-label">Upload Resume</label>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleResumeChange}
+                />
+                {resume && <p className="file-name">Selected: {resume.name}</p>}
+              </div>
+
+              <div className="form-group">
+                <label className="input-label">Job Description</label>
+                <textarea
+                  className="job-description-box"
+                  placeholder="Paste the full job description here..."
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  rows={12}
+                />
+              </div>
+            </div>
+
+            <button onClick={handleSubmit}>Submit</button>
+
+            {status && (
+              <p
+                className={`status-message ${status.toLowerCase().includes("failed") ||
+                    status.toLowerCase().includes("please")
+                    ? "status-error"
+                    : ""
+                  }`}
+              >
+                {status}
+              </p>
+            )}
           </div>
-
-          <div className="form-group">
-            <label className="input-label">Job Description</label>
-            <textarea
-              className="job-description-box"
-              placeholder="Paste the full job description here..."
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-              rows={10}
-            />
-          </div>
-
-          <button onClick={handleSubmit}>Submit</button>
-
-          {status && <p className="status-message">{status}</p>}
 
           {result && (
-            <div className="result-box" style={{ marginTop: "20px", textAlign: "left" }}>
-              <h3>Match Result</h3>
-              <p><strong>File:</strong> {result.file_name}</p>
-              <p><strong>Embedding Score:</strong> {result.embedding_score}/100</p>
-              <p><strong>Gemini Score:</strong> {result.gemini_score}/100</p>
-              <p><strong>Final Score:</strong> {result.final_score}/100</p>
-              <p><strong>Verdict:</strong> {result.verdict}</p>
+            <div className="upload-container upload-container-wide result-container">
+              <div className="result-box">
+                <div className="result-header">
+                  <div>
+                    <h3>Match Result</h3>
+                    <p className="result-file">
+                      <strong>File:</strong> {result.file_name}
+                    </p>
+                  </div>
 
-              <h4>Strengths</h4>
-              <ul>
-                {result.strengths?.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+                  <div className={verdictClass}>
+                    {result.verdict || "No verdict"}
+                  </div>
+                </div>
 
-              <h4>Missing Requirements</h4>
-              <ul>
-                {result.missing_requirements?.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+                <div className="score-grid">
+                  <div className="score-card">
+                    <span className="score-label">Embedding Score</span>
+                    <strong>
+                      {Number(result.embedding_score ?? 0).toFixed(1)}
+                      <span>/100</span>
+                    </strong>
+                  </div>
 
-              <h4>Recommendations</h4>
-              <ul>
-                {result.recommendations?.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+                  <div className="score-card">
+                    <span className="score-label">Gemini Score</span>
+                    <strong>
+                      {Number(result.gemini_score ?? 0).toFixed(1)}
+                      <span>/100</span>
+                    </strong>
+                  </div>
+
+                  <div className="score-card score-card-highlight">
+                    <span className="score-label">Final Score</span>
+                    <strong>
+                      {Number(result.final_score ?? 0).toFixed(1)}
+                      <span>/100</span>
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="analysis-sections">
+                  <div className="analysis-card">
+                    <h4>Strengths</h4>
+                    {result.strengths?.length ? (
+                      <ul className="clean-list">
+                        {result.strengths.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="empty-text">No strengths found.</p>
+                    )}
+                  </div>
+
+                  <div className="analysis-card">
+                    <h4>Missing Requirements</h4>
+                    {result.missing_requirements?.length ? (
+                      <ul className="clean-list">
+                        {result.missing_requirements.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="empty-text">No missing requirements found.</p>
+                    )}
+                  </div>
+
+                  <div className="analysis-card analysis-card-full">
+                    <h4>Recommendations</h4>
+                    {result.recommendations?.length ? (
+                      <ul className="clean-list">
+                        {result.recommendations.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="empty-text">No recommendations found.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
