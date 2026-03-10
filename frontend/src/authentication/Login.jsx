@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import "../styles.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -20,15 +21,16 @@ function Login() {
 
       console.log("Logged in:", userCredential.user);
       alert("Login successful");
-      navigate("/upload"); 
+      navigate("/upload");
     } catch (error) {
       alert(error.message);
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="auth-container">
+      <h2>Welcome Back</h2>
+      <p className="auth-subtext">Login to continue your journey.</p>
 
       <form onSubmit={handleLogin}>
         <input

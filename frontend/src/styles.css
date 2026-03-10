@@ -1,0 +1,294 @@
+/* =========================
+   GOOGLE FONT (optional)
+   ========================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* =========================
+   GLOBAL RESET
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+/* =========================
+   PAGE BACKGROUND
+   ========================= */
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 0, 128, 0.25), transparent 30%),
+    radial-gradient(circle at top right, rgba(0, 209, 255, 0.22), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(140, 82, 255, 0.20), transparent 35%),
+    linear-gradient(135deg, #0f172a, #111827, #1e293b);
+  background-size: 200% 200%;
+  animation: bgMove 12s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  padding: 30px 16px;
+}
+
+@keyframes bgMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* =========================
+   MAIN CARD CONTAINER
+   ========================= */
+.auth-container,
+.upload-container {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 24px;
+  padding: 36px 28px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* glowing border effect */
+.auth-container::before,
+.upload-container::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 209, 255, 0.7),
+    rgba(140, 82, 255, 0.7),
+    rgba(255, 0, 128, 0.7)
+  );
+  z-index: -1;
+  filter: blur(24px);
+  opacity: 0.55;
+}
+
+/* =========================
+   HEADINGS
+   ========================= */
+.auth-container h2,
+.upload-container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: -0.03em;
+  background: linear-gradient(90deg, #ffffff, #c4b5fd, #67e8f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-subtext,
+.upload-subtext,
+.auth-container p,
+.upload-container p {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* =========================
+   FORM
+   ========================= */
+.auth-container form,
+.upload-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================
+   INPUTS
+   ========================= */
+.auth-container input,
+.upload-container input[type="file"],
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  outline: none;
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+  font-size: 0.98rem;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 0 1px transparent;
+}
+
+.auth-container input::placeholder,
+.upload-container input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.auth-container input:focus,
+.upload-container input:focus {
+  border-color: rgba(103, 232, 249, 0.7);
+  box-shadow:
+    0 0 0 4px rgba(34, 211, 238, 0.12),
+    0 0 18px rgba(34, 211, 238, 0.18);
+  transform: translateY(-1px);
+}
+
+/* file input custom feel */
+.upload-container input[type="file"] {
+  padding: 14px;
+  cursor: pointer;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.auth-container button,
+.upload-container button {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 15px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.28s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+}
+
+/* Primary button */
+.auth-container form button,
+.upload-container button {
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899);
+  color: white;
+  box-shadow:
+    0 12px 30px rgba(139, 92, 246, 0.28),
+    0 8px 18px rgba(6, 182, 212, 0.18);
+}
+
+.auth-container form button:hover,
+.upload-container button:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow:
+    0 16px 35px rgba(139, 92, 246, 0.35),
+    0 10px 24px rgba(6, 182, 212, 0.22);
+}
+
+.auth-container form button:active,
+.upload-container button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Secondary nav button */
+.auth-container > button {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.auth-container > button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+/* Shine effect */
+.auth-container button::before,
+.upload-container button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.6s;
+}
+
+.auth-container button:hover::before,
+.upload-container button:hover::before {
+  left: 130%;
+}
+
+/* =========================
+   STATUS TEXT
+   ========================= */
+.status-message {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #d1fae5;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* error variation if you want */
+.status-error {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* =========================
+   TEXT LINKS / PARAGRAPHS
+   ========================= */
+.auth-container p {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+@media (max-width: 520px) {
+  .auth-container,
+  .upload-container {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+
+  .auth-container h2,
+  .upload-container h2 {
+    font-size: 1.65rem;
+  }
+
+  .auth-container input,
+  .upload-container input,
+  .auth-container button,
+  .upload-container button {
+    font-size: 0.95rem;
+    padding: 14px;
+  }
+}

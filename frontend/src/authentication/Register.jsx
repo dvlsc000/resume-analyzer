@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import "../styles.css";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -20,16 +21,16 @@ function Register() {
 
       console.log("Registered:", userCredential.user);
       alert("Registration successful");
-
-      navigate("/"); // go back to login
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="auth-container">
+      <h2>Create Account</h2>
+      <p className="auth-subtext">Join and start uploading in style.</p>
 
       <form onSubmit={handleRegister}>
         <input
