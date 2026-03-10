@@ -1,6 +1,27 @@
 .upload-container input[type="file"] {
-  padding: 14px;
+  width: 100%;
+  padding: 14px 16px;
   cursor: pointer;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.upload-container input[type="file"]:hover {
+  border-color: rgba(103, 232, 249, 0.35);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.upload-container input[type="file"]:focus {
+  outline: none;
+  border-color: rgba(103, 232, 249, 0.65);
+  box-shadow:
+    0 0 0 4px rgba(34, 211, 238, 0.1),
+    0 0 18px rgba(34, 211, 238, 0.12);
 }
 
 .form-group {
@@ -8,13 +29,15 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 18px;
+  min-width: 0;
 }
 
 .input-label {
   font-size: 0.95rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
   text-align: left;
+  letter-spacing: 0.01em;
 }
 
 /* =========================
@@ -25,27 +48,30 @@
   min-height: 240px;
   max-height: 420px;
   resize: vertical;
-  padding: 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   outline: none;
   background: rgba(255, 255, 255, 0.07);
-  color: white;
+  color: rgba(255, 255, 255, 0.96);
   font-size: 0.98rem;
-  line-height: 1.6;
+  line-height: 1.65;
   transition: all 0.3s ease;
   overflow-y: auto;
   white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .job-description-box::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.42);
 }
 
 .job-description-box:focus {
   border-color: rgba(103, 232, 249, 0.7);
+  background: rgba(255, 255, 255, 0.09);
   box-shadow:
     0 0 0 4px rgba(34, 211, 238, 0.12),
     0 0 18px rgba(34, 211, 238, 0.18);
@@ -58,6 +84,10 @@
   text-align: left;
   margin-top: 4px;
   word-break: break-word;
+  background: rgba(196, 181, 253, 0.08);
+  border: 1px solid rgba(196, 181, 253, 0.14);
+  padding: 10px 12px;
+  border-radius: 12px;
 }
 
 .job-description-box,
@@ -80,21 +110,26 @@
 
 .upload-container h3,
 .upload-container h4,
+.upload-container h5,
 .upload-container p,
 .upload-container span,
-.upload-container div {
+.upload-container div,
+.upload-container li {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
+/* =========================
+   ATS / RESULT CARD DETAILS
+   ========================= */
 .card-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
   margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .tag-wrap {
@@ -110,37 +145,65 @@
   justify-content: center;
   padding: 7px 14px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #f8fafc, #eef2ff);
-  border: 1px solid rgba(99, 102, 241, 0.15);
-  color: #4338ca;
-  font-size: 0.88rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  color: #ddd6fe;
+  font-size: 0.86rem;
   font-weight: 600;
-  letter-spacing: 0.2px;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
-  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: all 0.25s ease;
 }
 
 .tag-chip:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.12);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(103, 232, 249, 0.28);
+  color: #ffffff;
 }
 
 .ats-score-text {
   margin: 0 0 18px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(79, 70, 229, 0.06), rgba(59, 130, 246, 0.05));
-  border: 1px solid rgba(99, 102, 241, 0.1);
-  color: #1e293b;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.1),
+    rgba(139, 92, 246, 0.1)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.96rem;
-  line-height: 1.5;
+  line-height: 1.55;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .analysis-card h5 {
   margin-top: 18px;
   margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.analysis-card {
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+}
+
+.clean-list li {
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.empty-text {
+  color: rgba(255, 255, 255, 0.5);
 }
