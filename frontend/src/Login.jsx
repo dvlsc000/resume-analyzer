@@ -2,7 +2,6 @@ import { useState } from "react";
 import { auth } from "./firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 import "./AuthStyles.css";
 
 function Login() {
@@ -29,34 +28,31 @@ function Login() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="page-wrapper">
-        <div className="auth-container">
-          <h2>Welcome Back</h2>
-          <p className="auth-subtext">Login to continue your journey.</p>
+    <div className="page-wrapper no-navbar">
+      <div className="auth-container">
+        <h2>Welcome Back</h2>
+        <p className="auth-subtext">Login to continue your journey.</p>
 
-          <form onSubmit={handleLogin}>
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-            <button type="submit">Login</button>
-          </form>
+          <button type="submit">Login</button>
+        </form>
 
-          <p>Don't have an account?</p>
-          <button onClick={() => navigate("/register")}>Register</button>
-        </div>
+        <p>Don't have an account?</p>
+        <button onClick={() => navigate("/register")}>Register</button>
       </div>
-    </>
+    </div>
   );
 }
 

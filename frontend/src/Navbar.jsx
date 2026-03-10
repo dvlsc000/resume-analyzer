@@ -7,6 +7,7 @@ import "./AuthStyles.css";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = auth.currentUser;
 
   const handleLogout = async () => {
     try {
@@ -18,27 +19,15 @@ export default function Navbar() {
     }
   };
 
+  if (!user) return null;
+
   return (
     <nav className="navbar">
       <div className="navbar-logo" onClick={() => navigate("/upload")}>
-        CloudDrop
+        ResumePulse
       </div>
 
       <div className="navbar-links">
-        <button
-          className={`nav-btn ${location.pathname === "/" ? "active" : ""}`}
-          onClick={() => navigate("/")}
-        >
-          Login
-        </button>
-
-        <button
-          className={`nav-btn ${location.pathname === "/register" ? "active" : ""}`}
-          onClick={() => navigate("/register")}
-        >
-          Register
-        </button>
-
         <button
           className={`nav-btn ${location.pathname === "/upload" ? "active" : ""}`}
           onClick={() => navigate("/upload")}
