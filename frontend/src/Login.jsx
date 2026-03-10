@@ -20,6 +20,7 @@ function Login() {
 
       console.log("Logged in:", userCredential.user);
       alert("Login successful");
+      navigate("/upload"); 
     } catch (error) {
       alert(error.message);
     }
