@@ -13,6 +13,7 @@ from app.services.text_extractor import extract_resume_text, normalize_text
 from app.services.embedding_matcher import score_resume_vs_job
 from app.services.gemini_matcher import evaluate_with_gemini
 from app.services.scoring import combine_scores, get_verdict_from_score
+from app.services.ats_analyzer import analyze_ats_readability
 
 
 app = FastAPI(title="Resume Matcher API")
@@ -86,6 +87,8 @@ async def upload_resume(
 
             verdict = get_verdict_from_score(final_score)
 
+            ats_analysis = analyze_ats_readability(resume_text)
+
             return MatchResponse(
                 file_name=resume.filename,
                 embedding_score=embedding_score,
@@ -95,7 +98,8 @@ async def upload_resume(
                 strengths=gemini_result.get("strengths", []),
                 missing_requirements=gemini_result.get("missing_requirements", []),
                 recommendations=gemini_result.get("recommendations", []),
-                resume_preview=resume_text[:500]
+                resume_preview=resume_text[:500],
+                ats_analysis=ats_analysis
             )
 
         finally:

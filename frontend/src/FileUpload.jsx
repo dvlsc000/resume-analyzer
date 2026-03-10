@@ -9,11 +9,19 @@ export default function FileUpload() {
   const [result, setResult] = useState(null);
 
   const finalScore = Number(result?.final_score ?? 0);
+  const atsScore = Number(result?.ats_analysis?.ats_score ?? 0);
 
   const verdictClass =
     finalScore >= 75
       ? "verdict-badge verdict-strong"
       : finalScore >= 50
+        ? "verdict-badge verdict-medium"
+        : "verdict-badge verdict-weak";
+
+  const atsClass =
+    atsScore >= 85
+      ? "verdict-badge verdict-strong"
+      : atsScore >= 70
         ? "verdict-badge verdict-medium"
         : "verdict-badge verdict-weak";
 
@@ -59,6 +67,8 @@ export default function FileUpload() {
     }
   };
 
+  const contactChecks = result?.ats_analysis?.contact_checks || {};
+
   return (
     <>
       <Navbar />
@@ -98,11 +108,12 @@ export default function FileUpload() {
 
             {status && (
               <p
-                className={`status-message ${status.toLowerCase().includes("failed") ||
-                    status.toLowerCase().includes("please")
+                className={`status-message ${
+                  status.toLowerCase().includes("failed") ||
+                  status.toLowerCase().includes("please")
                     ? "status-error"
                     : ""
-                  }`}
+                }`}
               >
                 {status}
               </p>
@@ -149,6 +160,14 @@ export default function FileUpload() {
                       <span>/100</span>
                     </strong>
                   </div>
+
+                  <div className="score-card">
+                    <span className="score-label">ATS Score</span>
+                    <strong>
+                      {atsScore.toFixed(1)}
+                      <span>/100</span>
+                    </strong>
+                  </div>
                 </div>
 
                 <div className="analysis-sections">
@@ -188,6 +207,72 @@ export default function FileUpload() {
                       </ul>
                     ) : (
                       <p className="empty-text">No recommendations found.</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="analysis-sections">
+                  <div className="analysis-card">
+                    <div className="card-header-row">
+                      <h4>ATS Readability</h4>
+                      <div className={atsClass}>
+                        {result.ats_analysis?.ats_verdict || "No ATS verdict"}
+                      </div>
+                    </div>
+
+                    <p className="ats-score-text">
+                      ATS Parseability Score:{" "}
+                      <strong>{atsScore.toFixed(1)}/100</strong>
+                    </p>
+
+                    <h5>Detected Sections</h5>
+                    {result.ats_analysis?.detected_sections?.length ? (
+                      <div className="tag-wrap">
+                        {result.ats_analysis.detected_sections.map((section, idx) => (
+                          <span key={idx} className="tag-chip">
+                            {section}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="empty-text">No clear sections detected.</p>
+                    )}
+                  </div>
+
+                  <div className="analysis-card">
+                    <h4>Contact Checks</h4>
+                    <ul className="clean-list">
+                      <li>Email: {contactChecks.email ? "Detected" : "Missing"}</li>
+                      <li>Phone: {contactChecks.phone ? "Detected" : "Missing"}</li>
+                      <li>LinkedIn: {contactChecks.linkedin ? "Detected" : "Missing"}</li>
+                      <li>GitHub: {contactChecks.github ? "Detected" : "Missing"}</li>
+                      <li>Location: {contactChecks.location ? "Detected" : "Missing"}</li>
+                    </ul>
+                  </div>
+
+                  <div className="analysis-card">
+                    <h4>Formatting Warnings</h4>
+                    {result.ats_analysis?.format_warnings?.length ? (
+                      <ul className="clean-list">
+                        {result.ats_analysis.format_warnings.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="empty-text">No major formatting warnings found.</p>
+                    )}
+                  </div>
+
+                  <div className="analysis-card analysis-card-full">
+                    <h4>ATS Improvements</h4>
+                    {result.ats_analysis?.ats_improvements?.length ? (
+                      <ul className="clean-list">
+                        {result.ats_analysis.ats_improvements.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="empty-text">No ATS improvements suggested.</p>
                     )}
                   </div>
                 </div>

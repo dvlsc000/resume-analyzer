@@ -1,5 +1,14 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import Dict, List
+
+
+class ATSAnalysis(BaseModel):
+    ats_score: float = Field(..., ge=0, le=100)
+    ats_verdict: str
+    detected_sections: List[str]
+    contact_checks: Dict[str, bool]
+    format_warnings: List[str]
+    ats_improvements: List[str]
 
 
 class MatchResponse(BaseModel):
@@ -13,3 +22,4 @@ class MatchResponse(BaseModel):
     missing_requirements: List[str]
     recommendations: List[str]
     resume_preview: str
+    ats_analysis: ATSAnalysis
