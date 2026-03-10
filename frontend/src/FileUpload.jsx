@@ -6,6 +6,7 @@ export default function FileUpload() {
   const [resume, setResume] = useState(null);
   const [jobDescription, setJobDescription] = useState("");
   const [status, setStatus] = useState("");
+  const [result, setResult] = useState(null);
 
   const handleResumeChange = (event) => {
     setResume(event.target.files[0]);
@@ -27,20 +28,24 @@ export default function FileUpload() {
     formData.append("jobDescription", jobDescription);
 
     try {
-      setStatus("Uploading resume and job description...");
+      setStatus("Analyzing resume against the job description...");
+      setResult(null);
 
-      const response = await fetch("/api/upload", {
+      const response = await fetch("http://127.0.0.1:8000/api/upload", {
         method: "POST",
         body: formData,
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Submission failed");
+        throw new Error(data.detail || "Submission failed");
       }
 
-      setStatus("Resume and job description submitted successfully!");
+      setResult(data);
+      setStatus("Analysis completed successfully!");
     } catch (error) {
-      setStatus("Submission failed.");
+      setStatus(error.message || "Submission failed.");
       console.error(error);
     }
   };
@@ -57,7 +62,11 @@ export default function FileUpload() {
 
           <div className="form-group">
             <label className="input-label">Upload Resume</label>
-            <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeChange} />
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={handleResumeChange}
+            />
             {resume && <p className="file-name">Selected: {resume.name}</p>}
           </div>
 
@@ -75,6 +84,38 @@ export default function FileUpload() {
           <button onClick={handleSubmit}>Submit</button>
 
           {status && <p className="status-message">{status}</p>}
+
+          {result && (
+            <div className="result-box" style={{ marginTop: "20px", textAlign: "left" }}>
+              <h3>Match Result</h3>
+              <p><strong>File:</strong> {result.file_name}</p>
+              <p><strong>Embedding Score:</strong> {result.embedding_score}/100</p>
+              <p><strong>Gemini Score:</strong> {result.gemini_score}/100</p>
+              <p><strong>Final Score:</strong> {result.final_score}/100</p>
+              <p><strong>Verdict:</strong> {result.verdict}</p>
+
+              <h4>Strengths</h4>
+              <ul>
+                {result.strengths?.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+
+              <h4>Missing Requirements</h4>
+              <ul>
+                {result.missing_requirements?.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+
+              <h4>Recommendations</h4>
+              <ul>
+                {result.recommendations?.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>
