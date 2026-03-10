@@ -161,6 +161,137 @@ body {
 }
 
 /* =========================
+   NAVBAR
+   ========================= */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1200px;
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(6, 182, 212, 0.25),
+    rgba(139, 92, 246, 0.25),
+    rgba(236, 72, 153, 0.25)
+  );
+  z-index: -1;
+  filter: blur(18px);
+  opacity: 0.7;
+}
+
+.navbar-logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ffffff, #67e8f9, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.25s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.04);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.28s ease;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.nav-btn.active {
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899);
+  border: none;
+  box-shadow:
+    0 10px 24px rgba(139, 92, 246, 0.25),
+    0 6px 14px rgba(6, 182, 212, 0.16);
+}
+
+.logout-btn {
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.22);
+}
+
+/* push page content down so navbar doesn't overlap */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .navbar-links {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-btn {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+
+  .page-wrapper {
+    padding-top: 150px;
+  }
+}
+
+/* =========================
    BUTTONS
    ========================= */
 .auth-container button,

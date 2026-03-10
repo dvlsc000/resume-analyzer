@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./styles.css";
+import Navbar from "./Navbar";
+import "./AuthStyles.css";
 
 export default function FileUpload() {
   const [file, setFile] = useState(null);
@@ -38,15 +39,19 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="upload-container">
-      <h2>Upload File</h2>
-      <p className="upload-subtext">Choose your file and send it securely.</p>
+    <>
+      <Navbar />
+      <div className="page-wrapper">
+        <div className="upload-container">
+          <h2>Upload File</h2>
+          <p className="upload-subtext">Choose your file and send it securely.</p>
 
-      <input type="file" onChange={handleFileChange} />
-      <br /><br />
-      <button onClick={handleUpload}>Upload</button>
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleUpload}>Upload</button>
 
-      {status && <p className="status-message">{status}</p>}
-    </div>
+          {status && <p className="status-message">{status}</p>}
+        </div>
+      </div>
+    </>
   );
 }
