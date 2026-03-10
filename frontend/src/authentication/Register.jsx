@@ -1,26 +1,27 @@
 import { useState } from "react";
-import { auth } from "./firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-      console.log("Logged in:", userCredential.user);
-      alert("Login successful");
-      navigate("/upload"); 
+      console.log("Registered:", userCredential.user);
+      alert("Registration successful");
+
+      navigate("/"); // go back to login
     } catch (error) {
       alert(error.message);
     }
@@ -28,9 +29,9 @@ function Login() {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Register</h2>
 
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           placeholder="Email"
@@ -43,13 +44,13 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
 
-      <p>Don't have an account?</p>
-      <button onClick={() => navigate("/register")}>Register</button>
+      <p>Already have an account?</p>
+      <button onClick={() => navigate("/")}>Go to Login</button>
     </div>
   );
 }
 
-export default Login;
+export default Register;
